@@ -1,0 +1,21 @@
+const fs = require('fs');
+
+async function main() {
+  const url = 'https://share.gemini.google/vz24FaLtJwxr';
+  console.log('Fetching', url);
+  try {
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+      }
+    });
+    console.log('Status:', res.status);
+    const content = await res.text();
+    fs.writeFileSync('share_content.html', content);
+    console.log('Saved share_content.html, length:', content.length);
+  } catch (err) {
+    console.error('Error fetching URL:', err);
+  }
+}
+
+main();
